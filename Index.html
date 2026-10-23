@@ -1,1 +1,344 @@
+c<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coming Soon</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #0b0213;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow-x: hidden;
+            padding: 2rem 1rem;
+        }
+
+        /* Animated Blurred Background */
+        .bg-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            overflow: hidden;
+            filter: blur(55px);
+            opacity: 0.85;
+            pointer-events: none;
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            animation: float 14s infinite ease-in-out alternate;
+        }
+
+        .blob-1 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, #8b5cf6 0%, #3b82f6 100%);
+            top: -10%;
+            left: -10%;
+        }
+
+        .blob-2 {
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, #ec4899 0%, #7c3aed 100%);
+            bottom: -15%;
+            right: -10%;
+            animation-delay: -5s;
+            animation-duration: 18s;
+        }
+
+        .blob-3 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, #d946ef 0%, #4338ca 100%);
+            top: 40%;
+            left: 30%;
+            animation-delay: -8s;
+            animation-duration: 12s;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0px, 0px) scale(1) rotate(0deg); }
+            50% { transform: translate(60px, 80px) scale(1.15) rotate(90deg); }
+            100% { transform: translate(-40px, 50px) scale(0.9) rotate(180deg); }
+        }
+
+        /* Content Overlay */
+        .wrapper {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 680px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 24px;
+            padding: 3.5rem 2.5rem;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .badge {
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1.25rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #e2e8f0;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.1;
+        }
+
+        p {
+            color: #cbd5e1;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            max-width: 480px;
+        }
+
+        .contact-link {
+            color: #f472b6;
+            text-decoration: none;
+            font-weight: 600;
+            border-bottom: 1px solid rgba(244, 114, 182, 0.4);
+            transition: all 0.2s ease;
+        }
+
+        .contact-link:hover {
+            color: #ffffff;
+            border-bottom-color: #ffffff;
+        }
+
+        /* Countdown Grid */
+        .countdown {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            width: 100%;
+            max-width: 480px;
+            margin-top: 0.5rem;
+        }
+
+        .time-box {
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 1.25rem 0.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1;
+        }
+
+        .label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #94a3b8;
+            margin-top: 0.5rem;
+        }
+
+        /* Form */
+        .subscribe-form {
+            width: 100%;
+            max-width: 480px;
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .subscribe-form input {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 0.85rem 1.25rem;
+            color: #ffffff;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .subscribe-form input::placeholder {
+            color: #94a3b8;
+        }
+
+        .subscribe-form input:focus {
+            border-color: #a855f7;
+        }
+
+        .subscribe-form button {
+            background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+            border: none;
+            border-radius: 12px;
+            padding: 0.85rem 1.5rem;
+            color: #ffffff;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+
+        .subscribe-form button:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        footer {
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #94a3b8;
+        }
+
+        footer a {
+            color: #cbd5e1;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            .card {
+                padding: 2.5rem 1.5rem;
+            }
+            h1 {
+                font-size: 2.25rem;
+            }
+            .countdown {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .subscribe-form {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-container">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <div class="wrapper">
+        <div class="card">
+            <div class="badge">Coming Soon</div>
+            <h1>Something Great is in the Works</h1>
+            <p>We are currently building our new website. For inquiries, feel free to contact <a href="mailto:Yousifjerjis@gmail.com" class="contact-link">Yousifjerjis@gmail.com</a>.</p>
+
+            <div class="countdown">
+                <div class="time-box">
+                    <span class="number" id="days">00</span>
+                    <span class="label">Days</span>
+                </div>
+                <div class="time-box">
+                    <span class="number" id="hours">00</span>
+                    <span class="label">Hours</span>
+                </div>
+                <div class="time-box">
+                    <span class="number" id="minutes">00</span>
+                    <span class="label">Minutes</span>
+                </div>
+                <div class="time-box">
+                    <span class="number" id="seconds">00</span>
+                    <span class="label">Seconds</span>
+                </div>
+            </div>
+
+            <form class="subscribe-form" onsubmit="event.preventDefault(); alert('Subscribed!');">
+                <input type="email" placeholder="Yousifjerjis@gmail.com" required>
+                <button type="submit">Notify Me</button>
+            </form>
+        </div>
+
+        <footer>
+            Contact: <a href="mailto:Yousifjerjis@gmail.com">Yousifjerjis@gmail.com</a>
+        </footer>
+    </div>
+
+    <script>
+        // Check if a target countdown date is already stored in localStorage
+        let storedTargetDate = localStorage.getItem('comingSoonTargetDate');
+
+        if (!storedTargetDate) {
+            // Set target date to exactly 3 months (90 days) from now
+            const targetDate = new Date();
+            targetDate.setDate(targetDate.getDate() + 90);
+            storedTargetDate = targetDate.getTime();
+            localStorage.setItem('comingSoonTargetDate', storedTargetDate);
+        } else {
+            storedTargetDate = parseInt(storedTargetDate, 10);
+        }
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = storedTargetDate - now;
+
+            if (distance < 0) {
+                document.getElementById('days').innerText = "00";
+                document.getElementById('hours').innerText = "00";
+                document.getElementById('minutes').innerText = "00";
+                document.getElementById('seconds').innerText = "00";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('days').innerText = String(days).padStart(2, '0');
+            document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+            document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
+
+</body>
+</html>
